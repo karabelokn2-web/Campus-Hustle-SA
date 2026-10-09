@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Hustle SA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { 50:'#f0fdfa',100:'#ccfbf1',500:'#14b8a6',600:'#0d9488',700:'#0f766e',800:'#115e59' },
+            accent: { 500:'#f59e0b',600:'#d97706' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .page { display: none; }
+    .page.active { display: block; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <!-- ==================== AUTH ==================== -->
+  <div id="auth-container" class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- LOGIN -->
+    <div id="login-page" class="page active w-full max-w-md">
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 mb-4"><span class="text-3xl">🎓</span></div>
+          <h1 class="text-2xl font-bold text-gray-900">Campus Hustle SA</h1>
+          <p class="text-gray-500 mt-1">Gauteng Student Gig Marketplace</p>
+        </div>
+        <form id="login-form" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <input type="email" id="login-email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" placeholder="you@student.ac.za">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input type="password" id="login-password" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl transition shadow-md">Login</button>
+        </form>
+        <div class="mt-6 flex flex-col sm:flex-row justify-between gap-3 text-sm">
+          <button onclick="showPage('forgot-page')" class="text-primary-600 hover:underline">Forgot Password?</button>
+          <button onclick="showPage('signup-page')" class="text-primary-600 hover:underline font-medium">Create Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="signup-page" class="page w-full max-w-lg">
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold text-gray-900">Create Account</h1>
+          <p class="text-gray-500">Join Gauteng’s student hustle community</p>
+        </div>
+        <form id="signup-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input type="text" id="signup-name" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <input type="email" id="signup-email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input type="tel" id="signup-phone" required placeholder="+27" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <input type="password" id="signup-password" required minlength="6" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+              <input type="password" id="signup-confirm" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary-500 transition role-option">
+                <input type="radio" name="role" value="student" required class="mr-3 text-primary-600">
+                <div><div class="font-medium">Student Looking For Work</div><div class="text-xs text-gray-500">Find gigs & earn</div></div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary-500 transition role-option">
+                <input type="radio" name="role" value="poster" class="mr-3 text-primary-600">
+                <div><div class="font-medium">Gig Poster / Employer</div><div class="text-xs text-gray-500">Post opportunities</div></div>
+              </label>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+            <select id="signup-institution" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none bg-white">
+              <option value="">Select your institution</option>
+              <option>University of Johannesburg (UJ)</option>
+              <option>University of Pretoria (UP)</option>
+              <option>University of the Witwatersrand (WITS)</option>
+              <option>Tshwane University of Technology (TUT)</option>
+              <option>Vaal University of Technology (VUT)</option>
+              <option>UNISA</option>
+              <option>Varsity College</option>
+              <option>Richfield</option>
+              <option>Damelin</option>
+              <option>Boston City Campus</option>
+              <option>Other Gauteng Institution</option>
+            </select>
+          </div>
+          <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl transition shadow-md mt-2">Create Account</button>
+        </form>
+        <p class="text-center mt-5 text-sm text-gray-500">Already have an account? <button onclick="showPage('login-page')" class="text-primary-600 font-medium hover:underline">Login</button></p>
+      </div>
+    </div>
+
+    <!-- FORGOT -->
+    <div id="forgot-page" class="page w-full max-w-md">
+      <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100 text-center">
+        <h2 class="text-xl font-bold mb-2">Reset Password</h2>
+        <p class="text-gray-500 mb-6 text-sm">Enter your email and we’ll send a reset link (demo).</p>
+        <input type="email" id="forgot-email" placeholder="you@student.ac.za" class="w-full px-4 py-3 rounded-xl border border-gray-300 mb-4 outline-none focus:ring-2 focus:ring-primary-500">
+        <button onclick="alert('Password reset link sent (demo)')" class="w-full bg-primary-600 text-white py-3 rounded-xl font-semibold">Send Reset Link</button>
+        <button onclick="showPage('login-page')" class="mt-4 text-primary-600 text-sm hover:underline">Back to Login</button>
+      </div>
+    </div>
+
+    <!-- WELCOME -->
+    <div id="welcome-page" class="page w-full max-w-lg">
+      <div class="bg-white rounded-2xl shadow-xl p-10 border border-gray-100 text-center">
+        <div class="text-5xl mb-4">🎉</div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">Welcome to Campus Hustle SA</h1>
+        <p class="text-gray-600 leading-relaxed mb-8">
+          We're thrilled to welcome you to Gauteng's student gig marketplace.<br><br>
+          Whether you're offering services, looking for work, growing your side hustle, or connecting with other students, you're in the right place.<br><br>
+          Start exploring opportunities and building your future today.
+        </p>
+        <button onclick="enterApp()" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-3 rounded-xl shadow-md transition">Start Exploring</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN APP ==================== -->
+  <div id="app-container" class="hidden min-h-screen flex flex-col">
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🎓</span>
+            <span class="font-bold text-lg text-primary-700 hidden sm:inline">Campus Hustle SA</span>
+          </div>
+          <div class="hidden md:flex items-center gap-1">
+            <button onclick="navigate('home')" data-nav="home" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">Home</button>
+            <button onclick="navigate('explore')" data-nav="explore" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">Explore Gigs</button>
+            <button onclick="navigate('post')" data-nav="post" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">Post Gig</button>
+            <button onclick="navigate('messages')" data-nav="messages" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">Messages</button>
+            <button onclick="navigate('notifications')" data-nav="notifications" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition relative">
+              Notifications
+              <span class="absolute -top-1 -right-1 w-4 h-4 bg-accent-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
+            </button>
+            <button onclick="navigate('profile')" data-nav="profile" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition">Profile</button>
+          </div>
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-3 space-y-1">
+        <button onclick="navigate('home');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Home</button>
+        <button onclick="navigate('explore');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Explore Gigs</button>
+        <button onclick="navigate('post');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Post Gig</button>
+        <button onclick="navigate('messages');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Messages</button>
+        <button onclick="navigate('notifications');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Notifications</button>
+        <button onclick="navigate('profile');toggleMobile()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium">Profile</button>
+        <button onclick="logout()" class="block w-full text-left px-4 py-2 rounded-lg text-sm font-medium text-red-600">Logout</button>
+      </div>
+    </nav>
+
+    <main class="flex-1 pt-16 pb-8">
+      <!-- HOME -->
+      <div id="page-home" class="page active max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div class="bg-gradient-to-r from-primary-700 to-primary-500 rounded-2xl p-8 sm:p-10 text-white mb-8 shadow-lg">
+          <h1 class="text-2xl sm:text-3xl font-bold mb-2">Helping Gauteng Students Earn Extra Income</h1>
+          <p class="text-primary-100 max-w-2xl">Connect with students across Johannesburg, Pretoria, Soweto, Midrand, Centurion, Ekurhuleni and surrounding Gauteng campuses.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">💼</div><h3 class="font-semibold">Active Gigs</h3><p class="text-3xl font-bold text-primary-700 mt-1">3</p></div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">📝</div><h3 class="font-semibold">Gig Applications</h3><p class="text-3xl font-bold text-primary-700 mt-1" id="stat-apps">0</p></div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">💬</div><h3 class="font-semibold">Messages</h3><p class="text-3xl font-bold text-primary-700 mt-1">12</p></div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">❤️</div><h3 class="font-semibold">Saved Gigs</h3><p class="text-3xl font-bold text-primary-700 mt-1">5</p></div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">💰</div><h3 class="font-semibold">Earnings</h3><p class="text-3xl font-bold text-primary-700 mt-1" id="stat-earnings">R 0</p></div>
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100"><div class="text-2xl mb-3">🤝</div><h3 class="font-semibold">Network Connections</h3><p class="text-3xl font-bold text-primary-700 mt-1">28</p></div>
+        </div>
+      </div>
+
+      <!-- EXPLORE -->
+      <div id="page-explore" class="page max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <h1 class="text-2xl font-bold mb-6">Explore Gigs</h1>
+        <div class="mb-6">
+          <input type="text" id="search-gigs" placeholder="Search gigs by title, skill or keyword..." class="w-full px-5 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none shadow-sm">
+        </div>
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-6">
+          <h3 class="font-semibold mb-3 text-sm text-gray-700">Category</h3>
+          <div class="flex flex-wrap gap-2 mb-5">
+            <button data-cat="all" class="filter-btn active px-3 py-1.5 rounded-full text-sm bg-primary-600 text-white">All</button>
+            <button data-cat="Tutoring" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Tutoring</button>
+            <button data-cat="Graphic Design" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Graphic Design</button>
+            <button data-cat="Coding" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Coding</button>
+            <button data-cat="Photography" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Photography</button>
+            <button data-cat="Video Editing" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Video Editing</button>
+            <button data-cat="Writing" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Writing</button>
+            <button data-cat="Marketing" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Marketing</button>
+            <button data-cat="Social Media Management" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Social Media</button>
+            <button data-cat="Data Capturing" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Data Capturing</button>
+            <button data-cat="Event Assistance" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Event Assistance</button>
+            <button data-cat="Delivery / Errands" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Delivery / Errands</button>
+            <button data-cat="Research Assistant" class="filter-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Research Assistant</button>
+          </div>
+          <h3 class="font-semibold mb-3 text-sm text-gray-700">Location</h3>
+          <div class="flex flex-wrap gap-2">
+            <button data-loc="all" class="loc-btn active px-3 py-1.5 rounded-full text-sm bg-primary-600 text-white">All</button>
+            <button data-loc="Johannesburg" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Johannesburg</button>
+            <button data-loc="Pretoria" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Pretoria</button>
+            <button data-loc="Centurion" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Centurion</button>
+            <button data-loc="Midrand" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Midrand</button>
+            <button data-loc="Soweto" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Soweto</button>
+            <button data-loc="Randburg" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Randburg</button>
+            <button data-loc="Ekurhuleni" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Ekurhuleni</button>
+            <button data-loc="Benoni" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Benoni</button>
+            <button data-loc="Kempton Park" class="loc-btn px-3 py-1.5 rounded-full text-sm bg-gray-100 hover:bg-gray-200">Kempton Park</button>
+          </div>
+        </div>
+        <div id="gigs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+      </div>
+
+      <!-- POST GIG -->
+      <div id="page-post" class="page max-w-2xl mx-auto px-4 sm:px-6 py-8">
+        <h1 class="text-2xl font-bold mb-6">Post a New Gig</h1>
+        <form id="post-gig-form" class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-4">
+          <div><label class="block text-sm font-medium mb-1">Gig Title</label><input type="text" id="gig-title" required class="w-full px-4 py-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-primary-500"></div>
+          <div><label class="block text-sm font-medium mb-1">Category</label>
+            <select id="gig-category" required class="w-full px-4 py-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-primary-500 bg-white">
+              <option>Tutoring</option><option>Graphic Design</option><option>Coding</option><option>Photography</option>
+              <option>Video Editing</option><option>Writing</option><option>Marketing</option><option>Social Media Management</option>
+              <option>Data Capturing</option><option>Event Assistance</option><option>Delivery / Errands</option><option>Research Assistant</option>
+            </select>
+          </div>
+          <div><label class="block text-sm font-medium mb-1">Location</label>
+            <select id="gig-location" required class="w-full px-4 py-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-primary-500 bg-white">
+              <option>Johannesburg</option><option>Pretoria</option><option>Centurion</option><option>Midrand</option>
+              <option>Soweto</option><option>Randburg</option><option>Ekurhuleni</option><option>Benoni</option><option>Kempton Park</option>
+            </select>
+          </div>
+          <div><label class="block text-sm font-medium mb-1">Budget (ZAR)</label><input type="number" id="gig-budget" required min="50" class="w-full px-4 py-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-primary-500"></div>
+          <div><label class="block text-sm font-medium mb-1">Description</label><textarea id="gig-desc" rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-300 outline-none focus:ring-2 focus:ring-primary-500"></textarea></div>
+          <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl">Post Gig</button>
+        </form>
+      </div>
+
+      <!-- MESSAGES -->
+      <div id="page-messages" class="page max-w-3xl mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">Messages</h1>
+        <div class="bg-white rounded-2xl p-8 text-center text-gray-500 border border-gray-100">
+          <p class="text-4xl mb-3">💬</p>
+          <p>Your conversations will appear here.</p>
+        </div>
+      </div>
+
+      <!-- NOTIFICATIONS -->
+      <div id="page-notifications" class="page max-w-3xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="text-2xl font-bold">Notifications</h1>
+          <button onclick="markAllNotificationsRead()" class="text-sm text-primary-600 hover:underline">Mark all as read</button>
+        </div>
+        <div id="notifications-list" class="space-y-3"></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="page-profile" class="page max-w-3xl mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold mb-6">My Profile</h1>
+
+        <!-- Personal Info -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+          <h2 class="font-semibold text-lg mb-4">Personal Information</h2>
+          <div id="profile-info" class="space-y-3"></div>
+        </div>
+
+        <!-- Security & Payments (EFT) -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+          <h2 class="font-semibold text-lg mb-1">Security & Payments</h2>
+          <p class="text-sm text-gray-500 mb-5">Add your EFT banking details so you can receive payments securely.</p>
+          <form id="eft-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Account Holder Full Name</label>
+              <input type="text" id="eft-holder" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" placeholder="As it appears on your bank account">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Bank Name</label>
+              <select id="eft-bank" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none bg-white">
+                <option value="">Select your bank</option>
+                <option>Absa</option><option>Standard Bank</option><option>FNB</option><option>Nedbank</option>
+                <option>Capitec</option><option>Discovery Bank</option><option>TymeBank</option><option>African Bank</option>
+                <option>Investec</option><option>Other</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Account Number</label>
+                <input type="text" id="eft-account" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" placeholder="e.g. 1234567890">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Branch Code</label>
+                <input type="text" id="eft-branch" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none" placeholder="e.g. 250655">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+              <select id="eft-type" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 outline-none bg-white">
+                <option value="">Select type</option>
+                <option>Cheque / Current</option><option>Savings</option><option>Transmission</option>
+              </select>
+            </div>
+            <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 rounded-xl transition">Save Banking Details</button>
+          </form>
+          <div id="eft-saved" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-sm text-green-800">✓ Your EFT banking details have been saved securely.</div>
+        </div>
+
+        <!-- Legal -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+  <h2 class="font-semibold text-lg mb-4">Legal</h2>
+  <div class="space-y-3" id="legal-buttons">
+    <button type="button" data-legal="terms" class="w-full text-left px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition flex justify-between items-center">
+      <span>Terms of Service</span>
+      <span class="text-gray-400">→</span>
+    </button>
+    <button type="button" data-legal="privacy" class="w-full text-left px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition flex justify-between items-center">
+      <span>Privacy Policy</span>
+      <span class="text-gray-400">→</span>
+    </button>
+    <button type="button" data-legal="payments" class="w-full text-left px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition flex justify-between items-center">
+      <span>Payment & EFT Terms</span>
+      <span class="text-gray-400">→</span>
+    </button>
+    <button type="button" data-legal="community" class="w-full text-left px-4 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 transition flex justify-between items-center">
+      <span>Community Guidelines</span>
+      <span class="text-gray-400">→</span>
+    </button>
+  </div>
+</div>
+
+        <!-- Applications & Receipts -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+          <h2 class="font-semibold text-lg mb-1">My Applications & Receipts</h2>
+          <p class="text-sm text-gray-500 mb-5">Track your gigs and generate receipts when payment is received via EFT.</p>
+          <div id="applications-list" class="space-y-3"></div>
+        </div>
+
+        <button onclick="logout()" class="w-full bg-red-50 text-red-600 hover:bg-red-100 font-medium py-3 rounded-xl transition">Logout</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Legal Modal -->
+  <div id="legal-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+      <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex justify-between items-center">
+        <h3 id="legal-title" class="font-bold text-lg"></h3>
+        <button onclick="closeLegal()" class="text-gray-500 hover:text-gray-800 text-2xl leading-none">&times;</button>
+      </div>
+      <div id="legal-content" class="px-6 py-5 text-sm text-gray-700 leading-relaxed space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div id="receipt-modal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden">
+      <div class="bg-primary-600 text-white px-6 py-4 flex justify-between items-center">
+        <h3 class="font-bold text-lg">Payment Receipt</h3>
+        <button onclick="closeReceipt()" class="text-white/80 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <div id="receipt-content" class="px-6 py-6 text-sm"></div>
+      <div class="px-6 pb-6 flex gap-3">
+        <button onclick="window.print()" class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-medium py-2.5 rounded-xl text-sm">Print / Save as PDF</button>
+        <button onclick="closeReceipt()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2.5 rounded-xl text-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== DATA ==========
+    const sampleGigs = [
+      {id:1,title:"Math Tutoring – Grade 12",category:"Tutoring",location:"Johannesburg",budget:250,desc:"Need help with calculus and algebra. 2 sessions/week.",poster:"Lerato M."},
+      {id:2,title:"Logo Design for Student Society",category:"Graphic Design",location:"Pretoria",budget:800,desc:"Modern logo for campus society. Include source files.",poster:"Sipho K."},
+      {id:3,title:"Website Landing Page (React)",category:"Coding",location:"Midrand",budget:1500,desc:"Simple responsive landing page with Tailwind.",poster:"Aisha N."},
+      {id:4,title:"Event Photography – Orientation",category:"Photography",location:"Soweto",budget:600,desc:"Half-day coverage of campus orientation.",poster:"Jordan P."},
+      {id:5,title:"Social Media Content Creator",category:"Social Media Management",location:"Centurion",budget:400,desc:"Weekly Instagram posts for small business.",poster:"Nomsa D."},
+      {id:6,title:"Data Entry – Research Survey",category:"Data Capturing",location:"Ekurhuleni",budget:300,desc:"Capture 200 survey responses into Excel.",poster:"Thabo R."},
+      {id:7,title:"Video Edit – YouTube Intro",category:"Video Editing",location:"Randburg",budget:450,desc:"30-sec intro with music and text overlays.",poster:"Megan L."},
+      {id:8,title:"Academic Writing Assistance",category:"Writing",location:"Johannesburg",budget:350,desc:"Proofreading and structure help for assignment.",poster:"Kabelo S."},
+      {id:9,title:"Campus Delivery – Notes",category:"Delivery / Errands",location:"Pretoria",budget:80,desc:"Pick up notes from library and deliver to residence.",poster:"Fatima H."},
+      {id:10,title:"Research Assistant – Literature Review",category:"Research Assistant",location:"Kempton Park",budget:700,desc:"Help gather sources for postgraduate proposal.",poster:"Prof. Nkosi"}
+    ];
+
+    let currentUser = null;
+    let currentCategory = 'all';
+    let currentLocation = 'all';
+    let searchTerm = '';
+
+    let notifications = [
+      {id:1,text:"New application for your Graphic Design gig",read:false,time:"2h ago"},
+      {id:2,text:"Message from Thabo (UJ)",read:false,time:"5h ago"},
+      {id:3,text:"Your tutoring gig was saved by 2 students",read:false,time:"1d ago"},
+      {id:4,text:"Welcome to Campus Hustle SA! Complete your profile.",read:true,time:"2d ago"}
+    ];
+
+    // ========== AUTH ==========
+    function getUsers(){return JSON.parse(localStorage.getItem('chs_users')||'[]');}
+    function saveUser(user){const u=getUsers();u.push(user);localStorage.setItem('chs_users',JSON.stringify(u));}
+    function setSession(user){localStorage.setItem('chs_session',JSON.stringify(user));currentUser=user;}
+    function getSession(){return JSON.parse(localStorage.getItem('chs_session')||'null');}
+    function clearSession(){localStorage.removeItem('chs_session');currentUser=null;}
+
+    function showPage(id){
+      document.querySelectorAll('#auth-container .page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(id)?.classList.add('active');
+    }
+
+    function navigate(page){
+      document.querySelectorAll('#app-container .page').forEach(p=>p.classList.remove('active'));
+      document.getElementById('page-'+page)?.classList.add('active');
+      document.querySelectorAll('.nav-btn').forEach(b=>{
+        b.classList.remove('bg-primary-50','text-primary-700');
+        if(b.dataset.nav===page) b.classList.add('bg-primary-50','text-primary-700');
+      });
+      if(page==='explore') renderGigs();
+      if(page==='profile') renderProfile();
+      if(page==='notifications') renderNotifications();
+    }
+
+    function enterApp(){
+      document.getElementById('auth-container').classList.add('hidden');
+      document.getElementById('app-container').classList.remove('hidden');
+      navigate('home');
+      updateStats();
+    }
+
+    function logout(){
+      clearSession();
+      document.getElementById('app-container').classList.add('hidden');
+      document.getElementById('auth-container').classList.remove('hidden');
+      showPage('login-page');
+    }
+
+    document.getElementById('login-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const email=document.getElementById('login-email').value.trim().toLowerCase();
+      const pass=document.getElementById('login-password').value;
+      const user=getUsers().find(u=>u.email===email&&u.password===pass);
+      if(user){setSession(user);enterApp();}
+      else alert('Invalid email or password.');
+    });
+
+    document.getElementById('signup-form').addEventListener('submit',e=>{
+      e.preventDefault();
+      const name=document.getElementById('signup-name').value.trim();
+      const email=document.getElementById('signup-email').value.trim().toLowerCase();
+      const phone=document.getElementById('signup-phone').value.trim();
+      const password=document.getElementById('signup-password').value;
+      const confirm=document.getElementById('signup-confirm').value;
+      const role=document.querySelector('input[name="role"]:checked')?.value;
+      const institution=document.getElementById('signup-institution').value;
+      if(password!==confirm) return alert('Passwords do not match');
+      if(getUsers().some(u=>u.email===email)) return alert('Email already registered');
+      const user={name,email,phone,password,role,institution};
+      saveUser(user);setSession(user);showPage('welcome-page');
+    });
+
+    document.querySelectorAll('.role-option').forEach(label=>{
+      label.addEventListener('click',()=>{
+        document.querySelectorAll('.role-option').forEach(l=>l.classList.remove('border-primary-500','bg-primary-50'));
+        label.classList.add('border-primary-500','bg-primary-50');
+      });
+    });
+
+    // ========== GIGS ==========
+    function renderGigs(){
+      const container=document.getElementById('gigs-container');
+      if(!container) return;
+      let filtered=sampleGigs.filter(g=>{
+        const matchCat=currentCategory==='all'||g.category===currentCategory;
+        const matchLoc=currentLocation==='all'||g.location===currentLocation;
+        const matchSearch=!searchTerm||g.title.toLowerCase().includes(searchTerm)||g.desc.toLowerCase().includes(searchTerm)||g.category.toLowerCase().includes(searchTerm);
+        return matchCat&&matchLoc&&matchSearch;
+      });
+      if(filtered.length===0){
+        container.innerHTML=`<div class="col-span-full text-center py-12 text-gray-500">No gigs match your filters.</div>`;
+        return;
+      }
+      container.innerHTML=filtered.map(g=>`
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition flex flex-col">
+          <div class="flex justify-between items-start mb-2">
+            <span class="text-xs font-medium bg-primary-50 text-primary-700 px-2 py-1 rounded-full">${g.category}</span>
+            <span class="text-sm font-bold text-primary-700">R ${g.budget}</span>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-1">${g.title}</h3>
+          <p class="text-sm text-gray-500 mb-3 flex-1">${g.desc}</p>
+          <div class="flex items-center justify-between text-xs text-gray-400">
+            <span>📍 ${g.location}</span><span>by ${g.poster}</span>
+          </div>
+          <button data-gig-id="${g.id}" class="apply-btn mt-4 w-full bg-primary-50 hover:bg-primary-100 text-primary-700 font-medium py-2 rounded-xl text-sm transition">Apply / Contact</button>
+        </div>
+      `).join('');
+      container.querySelectorAll('.apply-btn').forEach(btn=>{
+        btn.addEventListener('click',function(){
+          const gig=sampleGigs.find(g=>g.id===parseInt(this.dataset.gigId));
+          if(gig) applyToGig(gig);
+        });
+      });
+    }
+
+    function applyToGig(gig){
+      let apps=JSON.parse(localStorage.getItem('chs_applications')||'[]');
+      if(apps.find(a=>a.gigId===gig.id)){alert('You have already applied to this gig.');return;}
+      apps.push({gigId:gig.id,title:gig.title,poster:gig.poster,date:new Date().toISOString(),paid:false});
+      localStorage.setItem('chs_applications',JSON.stringify(apps));
+      updateStats();
+      alert(`Application sent!\n\nYou applied for: "${gig.title}"\nPosted by: ${gig.poster}`);
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('active','bg-primary-600','text-white');b.classList.add('bg-gray-100');});
+        btn.classList.add('active','bg-primary-600','text-white');btn.classList.remove('bg-gray-100');
+        currentCategory=btn.dataset.cat;renderGigs();
+      });
+    });
+    document.querySelectorAll('.loc-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.loc-btn').forEach(b=>{b.classList.remove('active','bg-primary-600','text-white');b.classList.add('bg-gray-100');});
+        btn.classList.add('active','bg-primary-600','text-white');btn.classList.remove('bg-gray-100');
+        currentLocation=btn.dataset.loc;renderGigs();
+      });
+    });
+    document.getElementById('search-gigs')?.addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase();renderGigs();});
+
+    document.getElementById('post-gig-form')?.addEventListener('submit',e=>{
+      e.preventDefault();
+      const newGig={id:sampleGigs.length+1,title:document.getElementById('gig-title').value,category:document.getElementById('gig-category').value,location:document.getElementById('gig-location').value,budget:+document.getElementById('gig-budget').value,desc:document.getElementById('gig-desc').value,poster:currentUser?.name||'You'};
+      sampleGigs.unshift(newGig);alert('Gig posted successfully!');e.target.reset();navigate('explore');
+    });
+
+    // ========== NOTIFICATIONS ==========
+    function renderNotifications(){
+      const list=document.getElementById('notifications-list');
+      if(!list) return;
+      list.innerHTML=notifications.map(n=>`
+        <div data-notif-id="${n.id}" class="notification-item bg-white rounded-xl p-4 border border-gray-100 shadow-sm cursor-pointer hover:bg-gray-50 transition flex justify-between items-start ${n.read?'opacity-60':''}">
+          <div>
+            <p class="${n.read?'text-gray-500':'font-medium text-gray-900'}">${n.text}</p>
+            <p class="text-xs text-gray-400 mt-1">${n.time}</p>
+          </div>
+          ${!n.read?'<span class="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></span>':''}
+        </div>
+      `).join('');
+      list.querySelectorAll('.notification-item').forEach(item=>{
+        item.addEventListener('click',()=>markNotificationRead(parseInt(item.dataset.notifId)));
+      });
+      const unread=notifications.filter(n=>!n.read).length;
+      const badge=document.querySelector('[data-nav="notifications"] span');
+      if(badge){if(unread>0){badge.textContent=unread;badge.classList.remove('hidden');}else badge.classList.add('hidden');}
+    }
+    function markNotificationRead(id){const n=notifications.find(x=>x.id===id);if(n)n.read=true;renderNotifications();}
+    function markAllNotificationsRead(){notifications.forEach(n=>n.read=true);renderNotifications();}
+
+    // ========== PROFILE + EFT + LEGAL + RECEIPTS ==========
+    function loadEftDetails(){
+      const saved=JSON.parse(localStorage.getItem('chs_eft')||'null');
+      if(saved){
+        document.getElementById('eft-holder').value=saved.holder||'';
+        document.getElementById('eft-bank').value=saved.bank||'';
+        document.getElementById('eft-account').value=saved.account||'';
+        document.getElementById('eft-branch').value=saved.branch||'';
+        document.getElementById('eft-type').value=saved.type||'';
+        document.getElementById('eft-saved').classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('eft-form')?.addEventListener('submit',e=>{
+      e.preventDefault();
+      const data={holder:document.getElementById('eft-holder').value.trim(),bank:document.getElementById('eft-bank').value,account:document.getElementById('eft-account').value.trim(),branch:document.getElementById('eft-branch').value.trim(),type:document.getElementById('eft-type').value};
+      localStorage.setItem('chs_eft',JSON.stringify(data));
+      document.getElementById('eft-saved').classList.remove('hidden');
+      alert('Banking details saved successfully!');
+    });
+
+   // ========== LEGAL (FIXED) ==========
+const legalContent = {
+  terms: {
+    title: "Terms of Service",
+    body: `
+      <p><strong>Last updated:</strong> October 2025</p>
+      <p>Welcome to Campus Hustle SA. By using our platform you agree to these Terms of Service.</p>
+      <p><strong>1. Eligibility</strong><br>You must be a registered student at a recognised Gauteng institution or a verified gig poster. You must be at least 18 years old.</p>
+      <p><strong>2. User Accounts</strong><br>You are responsible for keeping your login details safe. You may not share your account.</p>
+      <p><strong>3. Gigs & Services</strong><br>Campus Hustle SA is only a marketplace. We do not employ students or guarantee work. All agreements are between the student and the gig poster.</p>
+      <p><strong>4. Payments</strong><br>All payments are made directly between users via EFT. Campus Hustle SA does not hold or process money.</p>
+      <p><strong>5. Prohibited Conduct</strong><br>No illegal activity, harassment, discrimination, or false information is allowed.</p>
+      <p><strong>6. Termination</strong><br>We may suspend or delete accounts that break these rules.</p>
+      <p><strong>7. Limitation of Liability</strong><br>Campus Hustle SA is not liable for any disputes, losses, or damages arising from gigs arranged on the platform.</p>
+    `
+  },
+  privacy: {
+    title: "Privacy Policy",
+    body: `
+      <p><strong>Last updated:</strong> October 2025</p>
+      <p>Campus Hustle SA respects your privacy and complies with the Protection of Personal Information Act (POPIA).</p>
+      <p><strong>Information we collect</strong><br>• Name, email, phone number, institution<br>• Banking details (only if you choose to add them)<br>• Gig applications and messages</p>
+      <p><strong>How we use it</strong><br>To operate the platform, connect students with gigs, and improve the service.</p>
+      <p><strong>Sharing</strong><br>We never sell your data. Banking details stay on your device only.</p>
+      <p><strong>Your rights</strong><br>You can request access, correction, or deletion of your personal information at any time.</p>
+      <p><strong>Contact</strong><br>privacy@campushustlesa.co.za</p>
+    `
+  },
+  payments: {
+    title: "Payment & EFT Terms",
+    body: `
+      <p><strong>How payments work on Campus Hustle SA</strong></p>
+      <p>Campus Hustle SA does <strong>not</strong> process or hold any money. All payments are made directly between the student and the gig poster via Electronic Funds Transfer (EFT).</p>
+      <p><strong>Student responsibilities</strong><br>• Provide correct banking details in Profile → Security & Payments<br>• Confirm the amount and reference before payment<br>• Keep proof of payment</p>
+      <p><strong>Gig Poster responsibilities</strong><br>• Pay the agreed amount promptly after the work is completed<br>• Use a clear payment reference (e.g. “Campus Hustle – [Gig Title]”)</p>
+      <p><strong>Disputes</strong><br>Campus Hustle SA is not responsible for unpaid gigs or payment disputes. Users must resolve these directly.</p>
+      <p><strong>Security tip</strong><br>Never share your banking PIN or OTP with anyone. Campus Hustle SA will never ask for it.</p>
+    `
+  },
+  community: {
+    title: "Community Guidelines",
+    body: `
+      <p>We want Campus Hustle SA to be a safe and respectful space for all Gauteng students.</p>
+      <p><strong>Be respectful</strong><br>No hate speech, bullying, or discrimination of any kind.</p>
+      <p><strong>Be honest</strong><br>Only post real gigs and accurate skills. Fake profiles or misleading information will be removed.</p>
+      <p><strong>Be professional</strong><br>Communicate clearly, meet deadlines, and treat every gig seriously.</p>
+      <p><strong>Report problems</strong><br>Email support@campushustlesa.co.za if you see something wrong.</p>
+      <p>Thank you for helping us build a positive student hustle community!</p>
+    `
+  }
+};
+
+function showLegal(type) {
+  const content = legalContent[type];
+  if (!content) {
+    alert("Content not found for: " + type);
+    return;
+  }
+
+  document.getElementById('legal-title').textContent = content.title;
+  document.getElementById('legal-content').innerHTML = content.body;
+
+  const modal = document.getElementById('legal-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeLegal() {
+  const modal = document.getElementById('legal-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+// Event delegation – this method never fails
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-legal]');
+  if (btn) {
+    e.preventDefault();
+    showLegal(btn.getAttribute('data-legal'));
+  }
+});
+
+// Close modal when clicking the dark background
+document.getElementById('legal-modal')?.addEventListener('click', function(e) {
+  if (e.target.id === 'legal-modal') {
+    closeLegal();
+  }
+});
+
+    function viewReceipt(gigId){
+      const apps=getApplications();
+      const app=apps.find(a=>a.gigId===gigId);
+      if(!app||!app.paid) return;
+      const eft=JSON.parse(localStorage.getItem('chs_eft')||'{}');
+      const user=currentUser||{};
+      document.getElementById('receipt-content').innerHTML=`
+        <div class="text-center mb-5"><div class="text-3xl mb-2">🎓</div><h2 class="font-bold text-lg">Campus Hustle SA</h2><p class="text-xs text-gray-500">Payment Receipt</p></div>
+        <div class="space-y-2 border-b border-gray-100 pb-4 mb-4">
+          <div class="flex justify-between"><span class="text-gray-500">Receipt No:</span><span class="font-medium">${app.receiptId}</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Date Paid:</span><span>${new Date(app.paidDate).toLocaleDateString('en-ZA')}</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">Reference:</span><span class="font-mono text-xs">${app.reference}</span></div>
+        </div>
+        <div class="space-y-2 border-b border-gray-100 pb-4 mb-4">
+          <div class="flex justify-between"><span class="text-gray-500">Gig:</span><span class="font-medium text-right max-w-[60%]">${app.title}</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">From:</span><span>${app.poster}</span></div>
+          <div class="flex justify-between"><span class="text-gray-500">To:</span><span>${user.name||'Student'}</span></div>
+        </div>
+        <div class="bg-primary-50 rounded-xl p-4 mb-4">
+          <div class="flex justify-between items-center"><span class="text-gray-600">Amount Received</span><span class="text-2xl font-bold text-primary-700">R ${app.amount.toLocaleString()}</span></div>
+          <p class="text-xs text-gray-500 mt-1">Paid via EFT</p>
+        </div>
+        ${eft.bank?`<div class="text-xs text-gray-500 space-y-1"><p><strong>Received into:</strong></p><p>${eft.holder} • ${eft.bank}</p><p>Acc: ${eft.account} • Branch: ${eft.branch}</p></div>`:''}
+        <p class="text-xs text-center text-gray-400 mt-6">This is a digital receipt generated by Campus Hustle SA.<br>Keep it for your records.</p>
+      `;
+      const modal=document.getElementById('receipt-modal');
+      modal.classList.remove('hidden');modal.classList.add('flex');
+    }
+    function closeReceipt(){
+      const modal=document.getElementById('receipt-modal');
+      modal.classList.add('hidden');modal.classList.remove('flex');
+    }
+    document.getElementById('receipt-modal')?.addEventListener('click',e=>{if(e.target.id==='receipt-modal')closeReceipt();});
+
+    function updateStats(){
+      const apps=getApplications();
+      const el=document.getElementById('stat-apps');
+      if(el) el.textContent=apps.length;
+      const paid=apps.filter(a=>a.paid);
+      const total=paid.reduce((s,a)=>s+(a.amount||0),0);
+      const earn=document.getElementById('stat-earnings');
+      if(earn) earn.textContent="R "+total.toLocaleString();
+    }
+
+    function renderProfile(){
+      if(!currentUser) return;
+      document.getElementById('profile-info').innerHTML=`
+        <p><span class="text-gray-500">Name:</span> <strong>${currentUser.name}</strong></p>
+        <p><span class="text-gray-500">Email:</span> ${currentUser.email}</p>
+        <p><span class="text-gray-500">Phone:</span> ${currentUser.phone}</p>
+        <p><span class="text-gray-500">Role:</span> ${currentUser.role==='student'?'Student Looking For Work':'Gig Poster / Employer'}</p>
+        <p><span class="text-gray-500">Institution:</span> ${currentUser.institution}</p>
+      `;
+      loadEftDetails();
+      renderApplications();
+      updateStats();
+    }
+
+    // Mobile menu
+    function toggleMobile(){document.getElementById('mobile-menu').classList.toggle('hidden');}
+    document.getElementById('mobile-menu-btn')?.addEventListener('click',toggleMobile);
+
+    // INIT
+    window.addEventListener('DOMContentLoaded',()=>{
+      updateStats();
+      const session=getSession();
+      if(session){currentUser=session;enterApp();}
+    });
+  </script>
+</body>
+</html>
