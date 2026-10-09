@@ -61,4 +61,4 @@ Campus Hustle SA is a modern, mobile-friendly web application that helps student
 
 ## 🌐 Live Demo
 
-Once published on GitHub Pages, your live link will be:
+Once published on GitHub Pages, your live link will be: https://campus-hustle-sa-zdw9.vercel.app/
